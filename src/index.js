@@ -38,7 +38,28 @@ app.get("/transactions", async (req, res) => {
     res.status;
     res.send;
   }
-  res.send({ data, count });
+
+  const totalIncome = +data.reduce((acc, transaction) => {
+    if (transaction.categories.type === "income") {
+      return acc + transaction.amount;
+    }
+    return acc;
+  }, 0).toFixed(2);
+
+  const totalExpense = +data.reduce((acc, transaction) => {
+    if (transaction.categories.type === "expense") {
+      return acc + transaction.amount;
+    }
+    return acc;
+  }, 0).toFixed(2);
+
+  const nettChange = +(totalIncome - totalExpense).toFixed(2);
+
+  res.send({ data, count, totalIncome, totalExpense, nettChange });
+});
+
+app.get("/totalBalance", async (req, res) => {
+  
 });
 
 app.listen(process.env.PORT, () => {
