@@ -62,6 +62,10 @@ export const getTransactionsByFilters = async (req, res) => {
   const expenseTransactionsGroupedByCategoryAndSorted =
     groupTransactionsByCategoryTypeAndSort(data, "expense");
 
+  const uncategorizedTransactions = data.filter(
+    (transaction) => transaction.categories.name === "Uncategorized"
+  );
+
   res.send({
     data,
     count,
@@ -70,5 +74,6 @@ export const getTransactionsByFilters = async (req, res) => {
     nettChange,
     incomeTransactionsGroupedByCategoryAndSorted,
     expenseTransactionsGroupedByCategoryAndSorted,
+    uncategorizedTransactions,
   });
 };
