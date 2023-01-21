@@ -1,6 +1,32 @@
 import { getTotalExpense, getTotalIncome } from "../../helpers.js";
 import supabase from "../../supabaseClient.js";
 
+const groupTransactionsByCategoryTypeAndSort = (transactions, type) => {
+  const transactionsGroupedByCategory = transactions
+    .filter((transaction) => transaction.categories.type === type)
+    .reduce((acc, transaction) => {
+      const { categories } = transaction;
+      const { id, name } = categories;
+      if (acc[id]) {
+        acc[id].amount = +(acc[id].amount + transaction.amount).toFixed(2);
+        acc[id].count += 1;
+      } else {
+        acc[id] = {
+          id,
+          name,
+          amount: +transaction.amount.toFixed(2),
+          count: 1,
+        };
+      }
+      return acc;
+    }, {});
+
+  // sort categories by highest amount
+  return Object.values(transactionsGroupedByCategory).sort(
+    (a, b) => b.amount - a.amount
+  );
+};
+
 export const getTransactionsByFilters = async (req, res) => {
   const { startDate, endDate, walletId, categoryIds } = req.query;
   let query = supabase
@@ -31,5 +57,18 @@ export const getTransactionsByFilters = async (req, res) => {
   const totalExpense = getTotalExpense(data);
   const nettChange = +(totalIncome - totalExpense).toFixed(2);
 
-  res.send({ data, count, totalIncome, totalExpense, nettChange });
+  const incomeTransactionsGroupedByCategoryAndSorted =
+    groupTransactionsByCategoryTypeAndSort(data, "income");
+  const expenseTransactionsGroupedByCategoryAndSorted =
+    groupTransactionsByCategoryTypeAndSort(data, "expense");
+
+  res.send({
+    data,
+    count,
+    totalIncome,
+    totalExpense,
+    nettChange,
+    incomeTransactionsGroupedByCategoryAndSorted,
+    expenseTransactionsGroupedByCategoryAndSorted,
+  });
 };
