@@ -7,8 +7,9 @@ const app = express();
 app.use(express.json());
 app.use(cors());
 
-app.use("/wallets", routes.wallets);
+app.use("/categories", routes.categories);
 app.use("/transactions", routes.transactions);
+app.use("/wallets", routes.wallets);
 
 app.get("/", (req, res) => {
   "welcome to rhb dollarvision api";

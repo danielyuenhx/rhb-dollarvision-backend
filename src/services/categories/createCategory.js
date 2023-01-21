@@ -1,13 +1,14 @@
 import supabase from "../../supabaseClient.js";
 
-export const createWallet = async (req, res) => {
-  const { name, initialBalance } = req.body;
+export const createCategory = async (req, res) => {
+  const { name, type, color } = req.body;
 
   const { data, error } = await supabase
-    .from("wallets")
+    .from("categories")
     .insert({
       name,
-      initial_balance: initialBalance,
+      type,
+      color,
     })
     .select("*");
 

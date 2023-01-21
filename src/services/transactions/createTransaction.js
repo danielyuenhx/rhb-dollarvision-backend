@@ -19,5 +19,5 @@ export const createTransaction = async (req, res) => {
     res.send;
   }
 
-  res.send(data);
+  res.send({ data });
 };

@@ -1,3 +1,3 @@
 export * from "./createWallet.js";
-export * from "./getAllWallets.js";
+export * from "./getWallets.js";
 export * from "./getTotalBalance.js";

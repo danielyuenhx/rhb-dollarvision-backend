@@ -1,7 +1,9 @@
-import wallets from "./wallets.js";
+import categories from "./categories.js";
 import transactions from "./transactions.js";
+import wallets from "./wallets.js";
 
 export default {
-  wallets,
+  categories,
   transactions,
+  wallets,
 };

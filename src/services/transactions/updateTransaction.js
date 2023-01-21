@@ -22,5 +22,5 @@ export const updateTransaction = async (req, res) => {
     res.send;
   }
 
-  res.send(data);
+  res.send({ data });
 };
