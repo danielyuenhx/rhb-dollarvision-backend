@@ -42,5 +42,5 @@ export const getTotalBalance = async (req, res) => {
     totalExpense
   ).toFixed(2);
 
-  res.send({ totalBalance });
+  res.send({ data: totalBalance });
 };

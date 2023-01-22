@@ -7,6 +7,7 @@ const app = express();
 app.use(express.json());
 app.use(cors());
 
+app.use("/budgets", routes.budgets);
 app.use("/categories", routes.categories);
 app.use("/transactions", routes.transactions);
 app.use("/wallets", routes.wallets);
