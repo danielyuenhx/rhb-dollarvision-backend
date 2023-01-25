@@ -48,10 +48,7 @@ export const getTransactionsByFilters = async (req, res) => {
     .order("created_at", { ascending: false });
 
   const { data, error, count } = await query;
-  if (error) {
-    res.status;
-    res.send;
-  }
+  if (error) return res.status(500).send({ error });
 
   const totalIncome = getTotalIncome(data);
   const totalExpense = getTotalExpense(data);
