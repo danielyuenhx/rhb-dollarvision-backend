@@ -9,11 +9,12 @@ app.use(cors());
 
 app.use("/budgets", routes.budgets);
 app.use("/categories", routes.categories);
+app.use("/piggy_banks", routes.piggyBanks);
 app.use("/transactions", routes.transactions);
 app.use("/wallets", routes.wallets);
 
 app.get("/", (req, res) => {
-  "welcome to rhb dollarvision api";
+  res.send("welcome to rhb dollarvision api");
 });
 
 app.listen(process.env.PORT, () => {
