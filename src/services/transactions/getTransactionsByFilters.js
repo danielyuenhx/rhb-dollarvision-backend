@@ -6,7 +6,7 @@ const groupTransactionsByCategoryTypeAndSort = (transactions, type) => {
     .filter((transaction) => transaction.categories.type === type)
     .reduce((acc, transaction) => {
       const { categories } = transaction;
-      const { id, name } = categories;
+      const { id, name, color } = categories;
       if (acc[id]) {
         acc[id].amount = +(acc[id].amount + transaction.amount).toFixed(2);
         acc[id].count += 1;
@@ -14,6 +14,7 @@ const groupTransactionsByCategoryTypeAndSort = (transactions, type) => {
         acc[id] = {
           id,
           name,
+          color,
           amount: +transaction.amount.toFixed(2),
           count: 1,
         };
