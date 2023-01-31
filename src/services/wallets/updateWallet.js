@@ -8,7 +8,7 @@ export const updateWallet = async (req, res) => {
   if (name) params.name = name;
   if (initial_balance) params.initial_balance = initial_balance;
   if (type) params.type = type;
-  if (isFav !== null) params.isFav = isFav;
+  if (isFav !== undefined) params.isFav = isFav;
 
   const { data, error } = await supabase
     .from('wallets')
